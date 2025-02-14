@@ -1,3 +1,3 @@
-import { calc } from "./index.js";
+import { calc } from "./index";
 
-console.log(calc(1, 2), "test ")
+console.log(calc(1, 2), "test")
