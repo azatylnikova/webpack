@@ -13,13 +13,22 @@
   "description": "",
   "devDependencies": {
     "@types/node": "^22.13.4",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
     "@types/webpack": "^5.28.5",
     "@types/webpack-dev-server": "^4.7.1",
     "html-webpack-plugin": "^5.6.3",
+    "mini-css-extract-plugin": "^2.9.2",
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3",
+    "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.2.0"
   }
 }

@@ -1,38 +1,29 @@
-import path from 'path';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin'; /// Дефолтный импорт
+import webpack from 'webpack'
+import {buildWebpackConfig} from "./config/build/buildWebpackConfig";
+import {BuildEnv, BuildPaths} from "./config/build/types/config";
+import path from "path";
 
-type Mode = 'production' | 'development';
 
-interface EnvVariables {
-  mode: Mode
-}
+export default (env: BuildEnv) => {
 
-export default(env : EnvVariables) =>{
-const config: webpack.Configuration = {
-  mode: env.mode ?? 'development',
-  entry:  path.resolve(__dirname, 'src', 'test.ts'),
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/, 
-      },
-    ],
-  },
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js'], /// при импорте мы понимаем что это файлы с исходным кодом
-  },
-  output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: '[name].[contenthash].js',
-    clean: true
-  },
-  plugins: 
-  [new HtmlWebpackPlugin( {tempalte: path.resolve(__dirname, 'public', 'index.html')}), 
-   new webpack.ProgressPlugin()
-  ]
-}
-return config;
-}
+    const paths: BuildPaths = {
+        entry: path.resolve(__dirname, 'src', 'index.tsx'),
+        build: path.resolve(__dirname, 'build'),
+        html: path.resolve(__dirname, 'public', 'index.html'),
+        src: path.resolve(__dirname, 'src'),
+    }
+
+    const mode = env.mode || 'development';
+    const PORT = env.port || 3000;
+
+    const isDev = mode === 'development';
+
+    const config: webpack.Configuration = buildWebpackConfig({
+        mode,
+        paths,
+        isDev,
+        port: PORT,
+    })
+
+    return config
+};
